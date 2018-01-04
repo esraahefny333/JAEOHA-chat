@@ -25,7 +25,7 @@ public class Server {
 
             Registry reg = LocateRegistry.createRegistry(5050);
 
-            reg.rebind("user", obj);
+            reg.rebind("user", obj);//esraa
 
             System.out.println("bind successfull");
         } catch (RemoteException ex) {
