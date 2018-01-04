@@ -5,6 +5,7 @@
  */
 package jaeoha_1;
 
+import database.connection.DatabaseConnectionHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author esraa
  */
-//omnia 
+
 public class JAEOHA_1 extends Application {
     
     @Override
@@ -26,6 +27,8 @@ public class JAEOHA_1 extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        DatabaseConnectionHandler.getConnection();
     }
 
     /**
