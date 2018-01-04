@@ -5,14 +5,12 @@
  */
 package dao.interfaces;
 
-import databaseclasses.Messages;
+import databaseclasses.Notifications;
 
 /**
  *
  * @author abanoub samy
  */
-public interface MessagesDaoInterface extends DaoInterface<Messages>{
-    
-    
+public interface NotificationsDaoInterface extends DaoInterface<Notifications>{
     
 }

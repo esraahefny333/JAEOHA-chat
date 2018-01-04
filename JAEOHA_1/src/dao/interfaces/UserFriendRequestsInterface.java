@@ -5,14 +5,12 @@
  */
 package dao.interfaces;
 
-import databaseclasses.Messages;
+import databaseclasses.UserFriendRequests;
 
 /**
  *
  * @author abanoub samy
  */
-public interface MessagesDaoInterface extends DaoInterface<Messages>{
-    
-    
+public interface UserFriendRequestsInterface extends DaoInterface<UserFriendRequests>{
     
 }

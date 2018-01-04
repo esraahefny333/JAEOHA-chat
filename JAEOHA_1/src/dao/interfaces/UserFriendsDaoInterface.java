@@ -5,14 +5,12 @@
  */
 package dao.interfaces;
 
-import databaseclasses.Messages;
+import databaseclasses.UserFriends;
 
 /**
  *
  * @author abanoub samy
  */
-public interface MessagesDaoInterface extends DaoInterface<Messages>{
-    
-    
+public interface UserFriendsDaoInterface extends DaoInterface<UserFriends>{
     
 }

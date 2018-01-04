@@ -5,14 +5,12 @@
  */
 package dao.interfaces;
 
-import databaseclasses.Messages;
+import databaseclasses.ChatMembers;
 
 /**
  *
  * @author abanoub samy
  */
-public interface MessagesDaoInterface extends DaoInterface<Messages>{
-    
-    
+public interface ChatMembersDaoInterface extends DaoInterface<ChatMembers>{
     
 }

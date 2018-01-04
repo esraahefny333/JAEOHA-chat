@@ -5,8 +5,8 @@
  */
 package dao.implementation;
 
-import dao.interfaces.CategoriesMembersDaoInterface;
-import databaseclasses.CategoriesMembers;
+import dao.interfaces.NotifRecieverDaoInterface;
+import databaseclasses.Notifreciever;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -14,31 +14,32 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author abanoub samy
  */
-public class CategoriesMembersImpl extends UnicastRemoteObject implements CategoriesMembersDaoInterface{
+public class NotifRecieverDaoImpl extends UnicastRemoteObject implements NotifRecieverDaoInterface{
+
     
-    
-    CategoriesMembersImpl()throws RemoteException
+    NotifRecieverDaoImpl()throws RemoteException
     {
         
+        
+        
     }
-
     @Override
-    public boolean insert(CategoriesMembers t) throws RemoteException {
+    public boolean insert(Notifreciever t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public CategoriesMembers select(CategoriesMembers t) throws RemoteException {
+    public Notifreciever select(Notifreciever t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(CategoriesMembers t) throws RemoteException {
+    public boolean update(Notifreciever t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(CategoriesMembers t) throws RemoteException {
+    public boolean delete(Notifreciever t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

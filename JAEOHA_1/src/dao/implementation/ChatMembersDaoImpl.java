@@ -5,8 +5,8 @@
  */
 package dao.implementation;
 
-import dao.interfaces.MessagesDaoInterface;
-import databaseclasses.Messages;
+import dao.interfaces.ChatMembersDaoInterface;
+import databaseclasses.ChatMembers;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -14,33 +14,32 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author abanoub samy
  */
-public class MessagesDaoImpl extends UnicastRemoteObject implements MessagesDaoInterface{
+public class ChatMembersDaoImpl extends UnicastRemoteObject implements ChatMembersDaoInterface{
     
     
-    
-    MessagesDaoImpl()throws RemoteException
+    ChatMembersDaoImpl()throws RemoteException
     {
         
         
     }
 
     @Override
-    public boolean insert(Messages t) throws RemoteException {
+    public boolean insert(ChatMembers t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Messages select(Messages t) throws RemoteException {
+    public ChatMembers select(ChatMembers t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Messages t) throws RemoteException {
+    public boolean update(ChatMembers t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Messages t) throws RemoteException {
+    public boolean delete(ChatMembers t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
