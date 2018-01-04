@@ -12,7 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 /**
  *
- * @author abanoub
+ * @author ab
  */
 public class MessagesDaoImpl extends UnicastRemoteObject implements MessagesDaoInterface{
     
