@@ -11,10 +11,17 @@ package databaseclasses;
  */
 public class notifications {
     
-    private int notifId;
+    private Integer notifId;
     private String notifText;
 
-    public notifications(int notifId, String notifText) {
+    public notifications() {
+    }
+
+    
+    
+    
+    
+    public notifications(Integer notifId, String notifText) {
         this.notifId = notifId;
         this.notifText = notifText;
     }
@@ -22,14 +29,14 @@ public class notifications {
     /**
      * @return the notifId
      */
-    public int getNotifId() {
+    public Integer getNotifId() {
         return notifId;
     }
 
     /**
      * @param notifId the notifId to set
      */
-    public void setNotifId(int notifId) {
+    public void setNotifId(Integer notifId) {
         this.notifId = notifId;
     }
 
@@ -46,7 +53,7 @@ public class notifications {
     public void setNotifText(String notifText) {
         this.notifText = notifText;
     }
-    
-    
-    
+
+   
+
 }

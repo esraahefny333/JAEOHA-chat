@@ -16,19 +16,24 @@ import javafx.scene.image.Image;
  */
 public class messages {
     
-    private int messageId;
+    private Integer messageId;
     private String messageText;
     private Date messageTime;
     private File file;
     private Image img;
-    private int fileType;
-    private int senderId;
-    private int chatId;
+    private Integer fileType;
+    private Integer senderId;
+    private Integer chatId;
     private String messageColor;
-    private int fontSize;
+    private Integer fontSize;
     private String fontType;
 
-    public messages(int messageId, String messageText, Date messageTime, File file, Image img, int fileType, int senderId, int chatId, String messageColor, int fontSize, String fontType) {
+    public messages() {
+    }
+
+    
+    
+    public messages(Integer messageId, String messageText, Date messageTime, File file, Image img, Integer fileType, Integer senderId, Integer chatId, String messageColor, Integer fontSize, String fontType) {
         this.messageId = messageId;
         this.messageText = messageText;
         this.messageTime = messageTime;
@@ -45,14 +50,14 @@ public class messages {
     /**
      * @return the messageId
      */
-    public int getMessageId() {
+    public Integer getMessageId() {
         return messageId;
     }
 
     /**
      * @param messageId the messageId to set
      */
-    public void setMessageId(int messageId) {
+    public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
 
@@ -115,42 +120,42 @@ public class messages {
     /**
      * @return the fileType
      */
-    public int getFileType() {
+    public Integer getFileType() {
         return fileType;
     }
 
     /**
      * @param fileType the fileType to set
      */
-    public void setFileType(int fileType) {
+    public void setFileType(Integer fileType) {
         this.fileType = fileType;
     }
 
     /**
      * @return the senderId
      */
-    public int getSenderId() {
+    public Integer getSenderId() {
         return senderId;
     }
 
     /**
      * @param senderId the senderId to set
      */
-    public void setSenderId(int senderId) {
+    public void setSenderId(Integer senderId) {
         this.senderId = senderId;
     }
 
     /**
      * @return the chatId
      */
-    public int getChatId() {
+    public Integer getChatId() {
         return chatId;
     }
 
     /**
      * @param chatId the chatId to set
      */
-    public void setChatId(int chatId) {
+    public void setChatId(Integer chatId) {
         this.chatId = chatId;
     }
 
@@ -171,14 +176,14 @@ public class messages {
     /**
      * @return the fontSize
      */
-    public int getFontSize() {
+    public Integer getFontSize() {
         return fontSize;
     }
 
     /**
      * @param fontSize the fontSize to set
      */
-    public void setFontSize(int fontSize) {
+    public void setFontSize(Integer fontSize) {
         this.fontSize = fontSize;
     }
 
@@ -195,8 +200,7 @@ public class messages {
     public void setFontType(String fontType) {
         this.fontType = fontType;
     }
+
     
-    
-    
-    
+
 }

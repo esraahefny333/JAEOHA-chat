@@ -11,10 +11,16 @@ package databaseclasses;
  */
 public class notifreciever {
     
-    private int notifId;
-    private int recieverId;
+    private Integer notifId;
+    private Integer recieverId;
 
-    public notifreciever(int notifId, int recieverId) {
+    public notifreciever() {
+    }
+
+    
+    
+    
+    public notifreciever(Integer notifId, Integer recieverId) {
         this.notifId = notifId;
         this.recieverId = recieverId;
     }
@@ -22,31 +28,30 @@ public class notifreciever {
     /**
      * @return the notifId
      */
-    public int getNotifId() {
+    public Integer getNotifId() {
         return notifId;
     }
 
     /**
      * @param notifId the notifId to set
      */
-    public void setNotifId(int notifId) {
+    public void setNotifId(Integer notifId) {
         this.notifId = notifId;
     }
 
     /**
      * @return the recieverId
      */
-    public int getRecieverId() {
+    public Integer getRecieverId() {
         return recieverId;
     }
 
     /**
      * @param recieverId the recieverId to set
      */
-    public void setRecieverId(int recieverId) {
+    public void setRecieverId(Integer recieverId) {
         this.recieverId = recieverId;
     }
-    
-    
-    
+
+  
 }

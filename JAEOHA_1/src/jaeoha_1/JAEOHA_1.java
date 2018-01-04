@@ -5,6 +5,7 @@
  */
 package jaeoha_1;
 
+import ServerImpl.Server;
 import database.connection.DatabaseConnectionHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,8 @@ public class JAEOHA_1 extends Application {
         stage.show();
         
         DatabaseConnectionHandler.getConnection();
+        
+        new Server();
     }
 
     /**
