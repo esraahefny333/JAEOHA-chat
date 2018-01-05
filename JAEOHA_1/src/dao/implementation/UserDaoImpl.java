@@ -107,6 +107,9 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
         }
 
     }
+    
+    
+    //select user data when trying to log in 
 
     @Override
     public Users select(Users t) throws RemoteException {
