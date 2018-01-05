@@ -17,6 +17,8 @@ public interface UserDaoInterface extends DaoInterface<Users>{
     
     public Vector<Users> getUserFriends(Users user)throws RemoteException;
     
+    public Vector<Users> getFriendRequests(Users user)throws RemoteException;
+    
     public boolean checkUserByEmail(Users user)throws RemoteException;
     
     

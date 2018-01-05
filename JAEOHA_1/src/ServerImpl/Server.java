@@ -12,6 +12,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import rmi.ServerImpl.ServerImpl;
 
 /**
  *
@@ -22,11 +23,11 @@ public class Server {
     public Server() {
 
         try {
-            UserDaoImpl obj = new UserDaoImpl();
+            ServerImpl obj = new ServerImpl();
 
             Registry reg = LocateRegistry.createRegistry(5050);
 
-            reg.rebind("user", obj);//esraa
+            reg.rebind("chat", obj);//esraa
 
             System.out.println("bind successfull");
         } catch (RemoteException ex) {

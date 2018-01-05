@@ -29,22 +29,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     public UserDaoImpl() throws RemoteException {
     }
 
-//    @Override
-//    public boolean signUp(Users user) throws RemoteException {
-//
-//        boolean checkIfExist = checkUserByEmail(user);
-//        if (checkIfExist) {
-//            insert(user);
-//
-//            return true;
-//        } else {
-//
-//            System.out.println("email is already exist");
-//            return false;
-//
-//        }
-//
-//    }
+
     // check user if exists
     @Override
     public boolean checkUserByEmail(Users user) throws RemoteException {
@@ -202,21 +187,16 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select friendId from user_friends where userId = ? )",
-                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
             pst.setInt(1, 3);
 
             rs = pst.executeQuery();
 
-       
+            System.out.println("friend selected successfully");
 
-                System.out.println("friend selected successfully");
-
-                friends = convertToVector(rs);
-                
-
-            
+            friends = convertToVector(rs);
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,6 +228,35 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return users;
+    }
+
+    @Override
+    public Vector<Users> getFriendRequests(Users user) throws RemoteException {
+
+        Vector<Users> userWhoRequested = new Vector<>();
+
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
+            ResultSet rs = null;
+
+            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select senderId from user_friend_requests where recieverId = ? )",
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            //   pst.setInt(1, user.getId());
+            pst.setInt(1, 3);
+
+            rs = pst.executeQuery();
+
+            System.out.println("user who requested selected successfully");
+
+            userWhoRequested = convertToVector(rs);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return userWhoRequested;
+
     }
 
 }

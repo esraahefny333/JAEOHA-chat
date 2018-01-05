@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import rmi.ServerImpl.ServerImpl;
 
 /**
  *
@@ -37,11 +38,11 @@ public class JAEOHA_1 extends Application {
         Users u =new Users();
         u.setUserName("abanoub samy");
         u.setCountry("alex");
-        u.setEmail("abanoub@yahoo.com");
+        u.setEmail("aub@yahoo.com");
         u.setGender("male");
-        u.setPhone("0125478");
+        u.setPhone("078");
         u.setPhoto(null);
-        u.setPassword("4587");
+        u.setPassword("47");
         u.setActive(1);
         u.setStatus("available");
        // u.setId(2);
@@ -49,14 +50,17 @@ public class JAEOHA_1 extends Application {
         
         
         
-        UserDaoImpl ud = new UserDaoImpl();
+        ServerImpl ud = new ServerImpl();
        //ud.insert(u);
        //ud.update(u);
       // ud.delete(u);
-      //ud.signUp(u);
+      ud.signUp(u);
       
-       // Vector<Users> v =ud.getUserFriends(u);
-        //System.out.println(v.get(0).getUserName());
+        Vector<Users> v =ud.myFriends(u);
+        System.out.println(v.get(0).getUserName());
+        
+      Vector<Users>v2 = ud.myFriendRequests(u);
+       System.out.println(v2.get(0).getUserName());
        
         
         new Server();
