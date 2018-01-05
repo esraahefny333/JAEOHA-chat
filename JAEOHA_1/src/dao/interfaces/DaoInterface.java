@@ -8,6 +8,8 @@ package dao.interfaces;
 import databaseclasses.Users;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.util.Vector;
 
 /**
  *
@@ -22,5 +24,7 @@ public interface DaoInterface<T> extends Remote {
     public boolean update(T t) throws RemoteException;
 
     public boolean delete(T t) throws RemoteException;
+    
+    public Vector<T> convertToVector(ResultSet rs) throws RemoteException;
 
 }

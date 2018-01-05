@@ -5,6 +5,7 @@
  */
 package rmi.ServerImpl;
 
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import rmi.interfaces.ServerInterface;
 
@@ -13,5 +14,11 @@ import rmi.interfaces.ServerInterface;
  * @author esraa
  */
 public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
+    
+    public ServerImpl()throws RemoteException
+    {
+        
+        
+    }
     
 }

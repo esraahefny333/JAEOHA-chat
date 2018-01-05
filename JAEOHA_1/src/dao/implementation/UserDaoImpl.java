@@ -15,8 +15,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -27,37 +29,34 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     public UserDaoImpl() throws RemoteException {
     }
 
-    @Override
-    public boolean signUp(Users user) throws RemoteException {
-
-        boolean checkIfExist = checkUserByEmail(user.getEmail());
-        if (checkIfExist) {
-            insert(user);
-
-            return true;
-        } else {
-
-            System.out.println("email is already exist");
-            return false;
-
-        }
-
-    }
-    
-    
+//    @Override
+//    public boolean signUp(Users user) throws RemoteException {
+//
+//        boolean checkIfExist = checkUserByEmail(user);
+//        if (checkIfExist) {
+//            insert(user);
+//
+//            return true;
+//        } else {
+//
+//            System.out.println("email is already exist");
+//            return false;
+//
+//        }
+//
+//    }
     // check user if exists
-
     @Override
-    public boolean checkUserByEmail(String email) throws RemoteException {
+    public boolean checkUserByEmail(Users user) throws RemoteException {
 
-        try (Connection conn = DatabaseConnectionHandler.getConnection()){
-            
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select * from users where email = ? ",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            pst.setString(1, email);
+            pst.setString(1, user.getEmail());
 
             rs = pst.executeQuery();
             if (rs.next()) {
@@ -67,7 +66,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
                 return true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -79,7 +78,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     @Override
     public boolean insert(Users t) throws RemoteException {
 
-        try (Connection conn = DatabaseConnectionHandler.getConnection()){
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             PreparedStatement pst = conn.prepareStatement("INSERT INTO  users"
                     + "( userName ,email,phoneNo,gender,country,password,status,photo,active) "
@@ -107,10 +106,8 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
         }
 
     }
-    
-    
-    //select user data when trying to log in 
 
+    //select user data when trying to log in 
     @Override
     public Users select(Users t) throws RemoteException {
 
@@ -141,7 +138,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     @Override
     public boolean update(Users t) throws RemoteException {
 
-        try (Connection conn = DatabaseConnectionHandler.getConnection()){
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
             PreparedStatement pst = conn.prepareStatement(" update  users set  userName = ? , email = ? ,"
                     + " phoneNo = ? , gender = ? , country = ? , password = ? ,  "
                     + "status = ? , photo = ?  "
@@ -174,7 +171,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     @Override
     public boolean delete(Users t) throws RemoteException {
 
-        try (Connection conn = DatabaseConnectionHandler.getConnection()){
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             PreparedStatement pst = conn.prepareStatement(" delete from   users "
                     + "  where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -193,6 +190,64 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
             return false;
         }
+    }
+
+    @Override
+    public Vector<Users> getUserFriends(Users user) throws RemoteException {
+
+        Vector<Users> friends = new Vector<>();
+
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
+            ResultSet rs = null;
+
+            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select friendId from user_friends where userId = ? )",
+                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            //   pst.setInt(1, user.getId());
+            pst.setInt(1, 3);
+
+            rs = pst.executeQuery();
+
+       
+
+                System.out.println("friend selected successfully");
+
+                friends = convertToVector(rs);
+                
+
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return friends;
+
+    }
+
+    @Override
+    public Vector<Users> convertToVector(ResultSet rs) throws RemoteException {
+        Vector<Users> users = new Vector<>();
+        try {
+
+            while (rs.next()) {
+
+                Users u = new Users();
+                u.setId(rs.getInt(1));
+                u.setUserName(rs.getString(2));
+                u.setEmail(rs.getString(3));
+                u.setStatus(rs.getString(4));
+                u.setPhoto((Image) rs.getBlob(5));
+                u.setActive(rs.getInt(6));
+
+                users.add(u);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
     }
 
 }

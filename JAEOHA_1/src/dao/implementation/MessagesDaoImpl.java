@@ -9,6 +9,8 @@ import dao.interfaces.MessagesDaoInterface;
 import databaseclasses.Message;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.util.Vector;
 
 /**
  *
@@ -41,6 +43,11 @@ public class MessagesDaoImpl extends UnicastRemoteObject implements MessagesDaoI
 
     @Override
     public boolean delete(Message t) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Vector<Message> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

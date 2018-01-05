@@ -9,6 +9,8 @@ import dao.interfaces.ChatDaoInterface;
 import databaseclasses.Chat;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.util.Vector;
 
 /**
  *
@@ -41,6 +43,11 @@ public class ChatDaoImpl extends UnicastRemoteObject implements ChatDaoInterface
 
     @Override
     public boolean delete(Chat t) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Vector<Chat> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
