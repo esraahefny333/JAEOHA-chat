@@ -60,5 +60,26 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         return d.getFriendRequests(user);
     }
 
+    @Override
+    public Users signIn(Users user) throws RemoteException {
+
+       boolean exists = d.checkUserByEmailAndPass(user);
+       if(exists)
+       {
+           
+        user=d.select(user);
+        user.setActive(1);
+        d.update(user);
+        return user;
+           
+       }
+       
+       else {
+           
+           return null;
+       }
+
+    }
+
     
 }

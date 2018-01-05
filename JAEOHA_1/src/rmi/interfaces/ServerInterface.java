@@ -5,6 +5,7 @@
  */
 package rmi.interfaces;
 
+import databaseclasses.Notification;
 import databaseclasses.Users;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -15,14 +16,15 @@ import java.util.Vector;
  * @author esraa
  */
 public interface ServerInterface extends Remote {
+
+    public boolean signUp(Users user) throws RemoteException;
+
+    public Users signIn(Users user) throws RemoteException;
+
+    public Vector<Users> myFriends(Users user) throws RemoteException;
+
+    public Vector<Users> myFriendRequests(Users user) throws RemoteException;
+
     
-    public boolean signUp(Users user)throws RemoteException;
-    
-    
-    
-    public Vector<Users> myFriends(Users user)throws RemoteException;
-    
-    public Vector<Users> myFriendRequests(Users user)throws RemoteException;
-    
-    
+
 }

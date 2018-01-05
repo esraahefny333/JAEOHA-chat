@@ -7,6 +7,7 @@ package dao.implementation;
 
 import dao.interfaces.UserDaoInterface;
 import database.connection.DatabaseConnectionHandler;
+import databaseclasses.Notification;
 import databaseclasses.Users;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -29,8 +30,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     public UserDaoImpl() throws RemoteException {
     }
 
-
-    // check user if exists
+    // check user email if exists
     @Override
     public boolean checkUserByEmail(Users user) throws RemoteException {
 
@@ -96,27 +96,24 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     @Override
     public Users select(Users t) throws RemoteException {
 
-//        try {
-//            Connection conn = DatabaseConnectionHandler.getConnection();
-//            ResultSet rs = null;
-//
-//            PreparedStatement pst = conn.prepareStatement("select userName ,email,phoneNo,gender,"
-//                    + "country,status,photo,active"
-//                    + "   from users where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//
-//            pst.setInt(1,2 );
-//            
-//           rs= pst.executeQuery();
-//           
-//            System.out.println("user selected successfully");
-//            
-//            
-//            
-//            
-//            return t;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            Connection conn = DatabaseConnectionHandler.getConnection();
+            ResultSet rs = null;
+
+            PreparedStatement pst = conn.prepareStatement("select userName ,email,phoneNo,gender,"
+                    + "country,status,photo,active"
+                    + "   from users where email = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            pst.setString(1, t.getEmail());
+
+            rs = pst.executeQuery();
+
+            System.out.println("user selected successfully");
+
+            return t;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return t;
     }
 
@@ -258,5 +255,37 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
         return userWhoRequested;
 
     }
+
+    @Override
+    public boolean checkUserByEmailAndPass(Users user) throws RemoteException {
+
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
+            ResultSet rs = null;
+
+            PreparedStatement pst = conn.prepareStatement("select * from users where email = ? and password = ? ",
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            pst.setString(1, user.getEmail());
+            pst.setString(2, user.getPassword());
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+
+            } else {
+
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+            return false;
+        }
+
+    }
+
+    
 
 }

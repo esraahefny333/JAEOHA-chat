@@ -54,15 +54,27 @@ public class JAEOHA_1 extends Application {
        //ud.insert(u);
        //ud.update(u);
       // ud.delete(u);
-      ud.signUp(u);
-      
-        Vector<Users> v =ud.myFriends(u);
-        System.out.println(v.get(0).getUserName());
-        
-      Vector<Users>v2 = ud.myFriendRequests(u);
-       System.out.println(v2.get(0).getUserName());
+//      ud.signUp(u);
+//      
+//        Vector<Users> v =ud.myFriends(u);
+//        System.out.println(v.get(0).getUserName());
+//        
+//      Vector<Users>v2 = ud.myFriendRequests(u);
+//       System.out.println(v2.get(0).getUserName());
+
+Users u7 = new Users();
+u7.setEmail("au@yahoo.com");
+u7.setPassword("47");
+        System.out.println(u7.getActive());
+
+u7=ud.signIn(u7);
+if(u7!=null)
+{
        
-        
+      System.out.println(u7.getActive()); 
+}
+
+
         new Server();
     }
 
