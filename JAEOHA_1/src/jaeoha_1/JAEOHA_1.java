@@ -21,59 +21,37 @@ import rmi.ServerImpl.ServerImpl;
  *
  * @author esraa
  */
-
 public class JAEOHA_1 extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
-        
-        DatabaseConnectionHandler.getConnection();
-        
-//        Users u =new Users();
-//        u.setUserName("abanoub samy");
-//        u.setCountry("alex");
-//        u.setEmail("aub@yahoo.com");
-//        u.setGender("male");
-//        u.setPhone("078");
-//        u.setPhoto(null);
-//        u.setPassword("47");
-//        u.setActive(1);
-//        u.setStatus("available");
-//       // u.setId(2);
-//        
-//        
-//        
-//        
-//        ServerImpl ud = new ServerImpl();
-//       //ud.insert(u);
-//       //ud.update(u);
-//      // ud.delete(u);
-////      ud.signUp(u);
-////      
-////        Vector<Users> v =ud.myFriends(u);
-////        System.out.println(v.get(0).getUserName());
-////        
-////      Vector<Users>v2 = ud.myFriendRequests(u);
-////       System.out.println(v2.get(0).getUserName());
-//
-//Users u7 = new Users();
-//u7.setEmail("au@yahoo.com");
-//u7.setPassword("47");
-//        System.out.println(u7.getActive());
-//
-//u7=ud.signIn(u7);
-//if(u7!=null)
-//{
-//       
-//      System.out.println(u7.getActive()); 
-//}
 
+       
+
+        Users u = new Users();
+
+        u.setEmail("a@yahoo.com");
+
+        u.setPassword("47");
+
+        ServerImpl ud = new ServerImpl();
+
+        u = ud.signIn(u);
+        if (u != null) {
+
+            System.out.println(u.getActive());
+        }
+
+        u = ud.changeMyStatus(u, "by");
+
+
+        System.out.println(u.getStatus());
 
         new Server();
     }
@@ -84,5 +62,5 @@ public class JAEOHA_1 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

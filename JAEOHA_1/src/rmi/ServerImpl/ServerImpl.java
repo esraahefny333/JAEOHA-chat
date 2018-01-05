@@ -28,7 +28,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     }
 
     @Override
-    public boolean signUp(Users user) throws RemoteException {
+    public Users signUp(Users user) throws RemoteException {
         
         
     
@@ -37,12 +37,13 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         boolean checkIfExist = d.checkUserByEmail(user);
         if (checkIfExist) {
             d.insert(user);
+            d.select(user);
 
-            return true;
+            return user;
         } else {
 
             System.out.println("email is already exist");
-            return false;
+            return null;
 
         }
     
@@ -67,10 +68,10 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
        if(exists)
        {
            
-        user=d.select(user);
+       user= d.select(user);
         user.setActive(1);
         d.update(user);
-        return user;
+        return d.select(user);
            
        }
        
@@ -79,6 +80,17 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
            return null;
        }
 
+    }
+
+    @Override
+    public Users changeMyStatus(Users user,String status) throws RemoteException {
+        
+        
+        user.setStatus(status);
+        
+        d.update(user);
+        return d.select(user);
+        
     }
 
     

@@ -17,7 +17,7 @@ import java.util.Vector;
  */
 public interface ServerInterface extends Remote {
 
-    public boolean signUp(Users user) throws RemoteException;
+    public Users signUp(Users user) throws RemoteException;
 
     public Users signIn(Users user) throws RemoteException;
 
@@ -25,6 +25,6 @@ public interface ServerInterface extends Remote {
 
     public Vector<Users> myFriendRequests(Users user) throws RemoteException;
 
-    
+    public Users changeMyStatus(Users user,String status)throws RemoteException;
 
 }
