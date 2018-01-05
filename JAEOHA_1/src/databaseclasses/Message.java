@@ -19,8 +19,8 @@ public class Message {
     private Integer messageId;
     private String messageText;
     private Date messageTime;
-    private File file;
-    private Image img;
+    private Blob file;
+//    private Image img;
     private Integer fileType;
     private Integer senderId;
     private Integer chatId;
@@ -28,13 +28,17 @@ public class Message {
     private Integer fontSize;
     private String fontType;
 
-    public Message(Integer messageId,String messageText,Date messageTime,File file, Image img, Integer fileType, 
+    public Message() {
+    }
+
+    
+    public Message(Integer messageId,String messageText,Date messageTime,Blob file, Image img, Integer fileType, 
             Integer senderId,Integer chatId,String messageColor, Integer fontSize, String fontType) {
         this.messageId = messageId;
         this.messageText = messageText;
         this.messageTime = messageTime;
         this.file = file;
-        this.img = img;
+//        this.img = img;
         this.fileType = fileType;
         this.senderId = senderId;
         this.chatId = chatId;
@@ -66,21 +70,21 @@ public class Message {
         this.messageTime = messageTime;
     }
 
-    public File getFile() {
+    public Blob getFile() {
         return file;
     }
 
-    public void setFile(File file) {
+    public void setFile(Blob file) {
         this.file = file;
     }
 
-    public Image getImg() {
+    /*public Image getImg() {
         return img;
     }
 
     public void setImg(Image img) {
         this.img = img;
-    }
+    }*/
 
     public Integer getFileType() {
         return fileType;

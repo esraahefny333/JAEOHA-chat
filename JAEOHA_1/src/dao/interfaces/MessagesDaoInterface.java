@@ -5,14 +5,18 @@
  */
 package dao.interfaces;
 
+import databaseclasses.Chat;
 import databaseclasses.Message;
+import java.rmi.RemoteException;
+import java.util.Vector;
 
 /**
  *
- * @author abanoub samy
+ * @author omnia samy
  */
 public interface MessagesDaoInterface extends DaoInterface<Message>{
     
-    
+   public Vector<Message> selectChatMessage(Chat c,Integer from,Integer to) throws RemoteException;
+        
     
 }

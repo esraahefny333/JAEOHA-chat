@@ -45,9 +45,6 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
             return false;
 
         }
-
-
-    
     
 }
     

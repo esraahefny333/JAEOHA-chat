@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  */
 public class DatabaseConnectionHandler {
 
-    private static String userName = "abanoub";
-    private static String password = "smsm12";
+    private static String userName = "root";
+    private static String password = "";
     private static String con = "jdbc:mysql://localhost/chat_database";
     private static Connection databaseconnection = null;
    
