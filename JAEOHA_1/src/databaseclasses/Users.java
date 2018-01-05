@@ -13,8 +13,9 @@ import javafx.scene.image.Image;
 public class Users {
     
     private Integer id;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
+    private String userName;
     private String email;
     private String phone;
     private String country;
@@ -27,120 +28,163 @@ public class Users {
     public Users()
     { 
     }
-    public Users(Integer id,String firstName,String lastName,String email,String phone,
-    String country,String gender,Image photo,String password,String status,Integer active)         
-    {
-      this.id=id;
-      this.firstName=firstName;
-      this.lastName=lastName;
-      this.email=email;
-      this.phone=phone;
-      this.country=country;
-      this.gender=gender;
-      this.photo=photo;
-      this.password=password;
-      this.status=status;
-      this.active=active;
+
+    public Users(Integer id, String userName, String email, String phone, String country, String gender, Image photo, String password, String status, Integer active) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.phone = phone;
+        this.country = country;
+        this.gender = gender;
+        this.photo = photo;
+        this.password = password;
+        this.status = status;
+        this.active = active;
     }
-    public Users(String first_name,String last_name,String email,String phone,
-    String country,String gender,Image photo,String password,String status,Integer active)         
-    {
-      this.firstName=firstName;
-      this.lastName=lastName;
-      this.email=email;
-      this.phone=phone;
-      this.country=country;
-      this.gender=gender;
-      this.photo=photo;
-      this.password=password;
-      this.status=status;
-      this.active=active;
-    }
-    
+
+    /**
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
+    /**
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email the email to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return the phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * @param phone the phone to set
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * @return the country
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * @param country the country to set
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * @return the gender
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * @param gender the gender to set
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * @return the photo
+     */
     public Image getPhoto() {
         return photo;
     }
 
+    /**
+     * @param photo the photo to set
+     */
     public void setPhoto(Image photo) {
         this.photo = photo;
     }
 
+    /**
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * @param password the password to set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * @return the status
+     */
     public String getStatus() {
         return status;
     }
 
+    /**
+     * @param status the status to set
+     */
     public void setStatus(String status) {
         this.status = status;
     }
 
+    /**
+     * @return the active
+     */
     public Integer getActive() {
         return active;
     }
 
+    /**
+     * @param active the active to set
+     */
     public void setActive(Integer active) {
         this.active = active;
     }
+    
+    
+    
+   
+
+
 }

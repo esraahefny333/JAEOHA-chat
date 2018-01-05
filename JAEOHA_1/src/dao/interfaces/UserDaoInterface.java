@@ -16,5 +16,7 @@ public interface UserDaoInterface extends DaoInterface<Users>{
     
     boolean signUp(Users user) throws RemoteException;
     
+    boolean checkUserByEmail(String email)throws RemoteException;
+    
     
 }

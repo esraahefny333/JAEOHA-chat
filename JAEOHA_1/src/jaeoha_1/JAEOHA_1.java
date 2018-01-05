@@ -6,7 +6,9 @@
 package jaeoha_1;
 
 import ServerImpl.Server;
+import dao.implementation.UserDaoImpl;
 import database.connection.DatabaseConnectionHandler;
+import databaseclasses.Users;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,6 +32,28 @@ public class JAEOHA_1 extends Application {
         stage.show();
         
         DatabaseConnectionHandler.getConnection();
+        
+        Users u =new Users();
+        u.setUserName("abanoub samy");
+        u.setCountry("alex");
+        u.setEmail("abanoub@yahoo.com");
+        u.setGender("male");
+        u.setPhone("0125478");
+        u.setPhoto(null);
+        u.setPassword("4587");
+        u.setActive(1);
+        u.setStatus("available");
+       // u.setId(2);
+        
+        
+        
+        
+        UserDaoImpl ud = new UserDaoImpl();
+       //ud.insert(u);
+       //ud.update(u);
+      // ud.delete(u);
+      ud.signUp(u);
+       
         
         new Server();
     }
