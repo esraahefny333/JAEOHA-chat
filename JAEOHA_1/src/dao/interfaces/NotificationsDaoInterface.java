@@ -5,12 +5,12 @@
  */
 package dao.interfaces;
 
-import databaseclasses.Notifications;
+import databaseclasses.Notification;
 
 /**
  *
  * @author abanoub samy
  */
-public interface NotificationsDaoInterface extends DaoInterface<Notifications>{
+public interface NotificationsDaoInterface extends DaoInterface<Notification>{
     
 }

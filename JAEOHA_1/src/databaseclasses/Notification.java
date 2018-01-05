@@ -9,19 +9,19 @@ package databaseclasses;
  *
  * @author abanoub samy
  */
-public class notifications {
+public class Notification {
     
     private Integer notifId;
     private String notifText;
 
-    public notifications() {
+    public Notification() {
+    }
+    
+     public Notification( String notifText) {
+        this.notifText = notifText;
     }
 
-    
-    
-    
-    
-    public notifications(Integer notifId, String notifText) {
+    public Notification(Integer notifId, String notifText) {
         this.notifId = notifId;
         this.notifText = notifText;
     }
@@ -53,7 +53,6 @@ public class notifications {
     public void setNotifText(String notifText) {
         this.notifText = notifText;
     }
-
-   
-
+    
+    
 }

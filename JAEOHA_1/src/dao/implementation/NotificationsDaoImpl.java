@@ -6,7 +6,7 @@
 package dao.implementation;
 
 import dao.interfaces.NotificationsDaoInterface;
-import databaseclasses.Notifications;
+import databaseclasses.Notification;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -23,22 +23,22 @@ public class NotificationsDaoImpl extends UnicastRemoteObject implements Notific
         
     }
     @Override
-    public boolean insert(Notifications t) throws RemoteException {
+    public boolean insert(Notification t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Notifications select(Notifications t) throws RemoteException {
+    public Notification select(Notification t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Notifications t) throws RemoteException {
+    public boolean update(Notification t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Notifications t) throws RemoteException {
+    public boolean delete(Notification t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
