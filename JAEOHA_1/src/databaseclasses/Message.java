@@ -6,6 +6,7 @@
 package databaseclasses;
 
 import java.io.File;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 import javafx.scene.image.Image;
@@ -14,7 +15,7 @@ import javafx.scene.image.Image;
  *
  * @author abanoub samy
  */
-public class Message {
+public class Message implements Serializable{
     
     private Integer messageId;
     private String messageText;

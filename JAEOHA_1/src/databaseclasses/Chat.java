@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package databaseclasses;
+
+import java.io.Serializable;
+
 /**
  *
  * @author abc
  */
-public class Chat {
+public class Chat implements Serializable{
 
     private Integer chatId;
     private String  chatName;

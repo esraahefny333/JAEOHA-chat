@@ -5,12 +5,13 @@
  */
 package databaseclasses;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 /**
  *
  * @author omnia
  */
-public class Users {
+public class Users implements Serializable{
     
     private Integer id;
 //    private String firstName;

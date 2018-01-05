@@ -5,11 +5,13 @@
  */
 package databaseclasses;
 
+import java.io.Serializable;
+
 /**
  *
  * @author omnia
  */
-public class Admins {
+public class Admins implements Serializable{
     
    private Integer adminId;
    private String fname;

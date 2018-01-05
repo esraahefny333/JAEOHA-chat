@@ -5,11 +5,13 @@
  */
 package databaseclasses;
 
+import java.io.Serializable;
+
 /**
  *
  * @author abanoub samy
  */
-public class Notification {
+public class Notification implements Serializable{
     
     private Integer notifId;
     private String notifText;

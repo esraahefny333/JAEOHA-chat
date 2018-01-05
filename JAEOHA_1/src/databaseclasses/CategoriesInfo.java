@@ -5,11 +5,13 @@
  */
 package databaseclasses;
 
+import java.io.Serializable;
+
 /**
  *
  * @author omnia
  */
-public class CategoriesInfo {
+public class CategoriesInfo implements Serializable{
     
   private Integer groubId;
   private String  groubName;

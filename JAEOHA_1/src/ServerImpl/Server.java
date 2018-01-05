@@ -25,7 +25,7 @@ public class Server {
         try {
             ServerImpl obj = new ServerImpl();
 
-            Registry reg = LocateRegistry.createRegistry(5050);
+            Registry reg = LocateRegistry.createRegistry(1099);
 
             reg.rebind("chat", obj);//esraa
 
