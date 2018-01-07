@@ -5,8 +5,8 @@
  */
 package dao.implementation;
 
-import dao.interfaces.ChatDaoInterface;
-import databaseclasses.Chat;
+import dao.interfaces.AdminsDaoInterface;
+import databaseclasses.Admins;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
@@ -16,38 +16,37 @@ import java.util.Vector;
  *
  * @author abanoub samy
  */
-public class ChatDaoImpl extends UnicastRemoteObject implements ChatDaoInterface{
+public class AdminsDaoImpl extends UnicastRemoteObject implements AdminsDaoInterface{
     
     
-    ChatDaoImpl() throws RemoteException
+    AdminsDaoImpl() throws RemoteException
     {
         
         
-        
     }
 
     @Override
-    public boolean insert(Chat t) throws RemoteException {
+    public boolean insert(Admins t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Chat select(Chat t) throws RemoteException {
+    public Admins select(Admins t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Chat t) throws RemoteException {
+    public boolean update(Admins t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Chat t) throws RemoteException {
+    public boolean delete(Admins t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Vector<Chat> convertToVector(ResultSet rs) throws RemoteException {
+    public Vector<Admins> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
