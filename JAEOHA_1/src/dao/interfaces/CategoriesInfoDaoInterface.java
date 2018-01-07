@@ -9,7 +9,7 @@ import databaseclasses.CategoriesInfo;
 
 /**
  *
- * @author abanoub samy
+ * @author abanoub samy   
  */
 public interface CategoriesInfoDaoInterface extends DaoInterface<CategoriesInfo>{
     

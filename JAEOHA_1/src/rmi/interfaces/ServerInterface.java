@@ -20,6 +20,14 @@ public interface ServerInterface extends Remote {
     public Users signUp(Users user) throws RemoteException;
 
     public Users signIn(Users user) throws RemoteException;
+    
+    public boolean signOut(Users user) throws RemoteException;
+    
+    
+    public boolean checkRequestedOrNot(Users user ,Users retrivedUser)throws RemoteException;
+    
+    
+    public Users selectByEmail(String email) throws RemoteException;
 
     public Vector<Users> myFriends(Users user) throws RemoteException;
 

@@ -30,4 +30,6 @@ public interface UserDaoInterface extends DaoInterface<Users>{
     
     
     
+    
+    
 }

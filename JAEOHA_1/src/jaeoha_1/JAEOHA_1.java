@@ -34,24 +34,7 @@ public class JAEOHA_1 extends Application {
 
        
 
-        Users u = new Users();
-
-        u.setEmail("a@yahoo.com");
-
-        u.setPassword("47");
-
-        ServerImpl ud = new ServerImpl();
-
-        u = ud.signIn(u);
-        if (u != null) {
-
-            System.out.println(u.getActive());
-        }
-
-        u = ud.changeMyStatus(u, "by");
-
-
-        System.out.println(u.getStatus());
+     
 
         new Server();
     }

@@ -39,7 +39,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select * from users where email = ? ",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, user.getEmail());
 
@@ -67,7 +67,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
             PreparedStatement pst = conn.prepareStatement("INSERT INTO  users"
                     + "( userName ,email,phoneNo,gender,country,password,status,photo,active) "
-                    + "values (?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "values (?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, t.getUserName());
             pst.setString(2, t.getEmail());
@@ -96,41 +96,47 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     @Override
     public Users select(Users t) throws RemoteException {
 
-        try(Connection conn = DatabaseConnectionHandler.getConnection()) {
-            
+        boolean found = false;
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,phoneNo,gender,"
                     + "country,password,status,photo,active"
-                    + "   from users where email = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "   from users where email = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, t.getEmail());
 
             rs = pst.executeQuery();
 
             System.out.println("user selected successfully");
-while(rs.next())
-{
-            t.setId(rs.getInt(1));
-            t.setUserName(rs.getString(2));
-            t.setEmail(rs.getString(3));
-            t.setPhone(rs.getString(4));
-            t.setGender(rs.getString(5));
 
-            t.setCountry(rs.getString(6));
+            while (rs.next()) {
+                found = true;
+                t.setId(rs.getInt(1));
+                t.setUserName(rs.getString(2));
+                t.setEmail(rs.getString(3));
+                t.setPhone(rs.getString(4));
+                t.setGender(rs.getString(5));
 
-            t.setPassword(rs.getString(7));
-            t.setStatus(rs.getString(8));
+                t.setCountry(rs.getString(6));
 
-            t.setPhoto(null);
-            t.setActive(rs.getInt(10));
-}
-            return t;
+                t.setPassword(rs.getString(7));
+                t.setStatus(rs.getString(8));
+
+                t.setPhoto(null);
+                t.setActive(rs.getInt(10));
+            }
+            if (found) {
+                return t;
+            } else {
+                return null;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            return t;
+            return null;
         }
-        
+
     }
 
     @Override
@@ -139,8 +145,8 @@ while(rs.next())
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
             PreparedStatement pst = conn.prepareStatement(" update  users set  userName = ? , email = ? ,"
                     + " phoneNo = ? , gender = ? , country = ? , password = ? ,  "
-                    + "status = ? , photo = ?  "
-                    + "  where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "status = ? , photo = ? ,active = ? "
+                    + "  where id = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, t.getUserName());
             pst.setString(2, t.getEmail());
@@ -151,7 +157,9 @@ while(rs.next())
             pst.setString(7, t.getStatus());
 
             pst.setBlob(8, (Blob) t.getPhoto());
-            pst.setInt(9, t.getId());
+
+            pst.setInt(9, t.getActive());
+            pst.setInt(10, t.getId());
 
             pst.executeUpdate();
 
@@ -172,9 +180,9 @@ while(rs.next())
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             PreparedStatement pst = conn.prepareStatement(" delete from   users "
-                    + "  where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "  where id = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            pst.setInt(1, 2);
+            pst.setInt(1, t.getId());
 
             pst.executeUpdate();
 
@@ -200,7 +208,7 @@ while(rs.next())
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select friendId from user_friends where userId = ? )",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
             pst.setInt(1, 3);
@@ -253,7 +261,7 @@ while(rs.next())
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select senderId from user_friend_requests where recieverId = ? )",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
             pst.setInt(1, 3);
@@ -280,7 +288,7 @@ while(rs.next())
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select * from users where email = ? and password = ? ",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, user.getEmail());
             pst.setString(2, user.getPassword());
@@ -302,4 +310,5 @@ while(rs.next())
 
     }
 
+   
 }
