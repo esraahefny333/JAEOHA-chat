@@ -6,13 +6,13 @@
 package ServerImpl;
 
 
-import dao.implementation.UserDaoImpl;
+import DAL.dao.implementation.UserDaoImpl;
+import RMI.ServerImpl.ServerImpl;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import rmi.ServerImpl.ServerImpl;
 
 /**
  *

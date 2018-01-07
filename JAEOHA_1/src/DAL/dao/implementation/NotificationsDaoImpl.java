@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.implementation;
+package DAL.dao.implementation;
 
-import dao.interfaces.NotificationsDaoInterface;
+import DAL.dao.interfaces.NotificationsDaoInterface;
 import databaseclasses.Notification;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -45,7 +46,7 @@ public class NotificationsDaoImpl extends UnicastRemoteObject implements Notific
     }
 
     @Override
-    public Vector<Notification> convertToVector(ResultSet rs) throws RemoteException {
+    public ArrayList<Notification> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package database.connection;
+package DAL.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,10 +20,10 @@ public class DatabaseConnectionHandler {
 
     private static String userName = "root";
     private static String password = "";
-    private static String con = "jdbc:mysql://localhost/chat_database";
-    private static Connection databaseconnection = null;
+    private static String con = "jdbc:mysql://localhost/chat_database1";
+    private static Connection databaseconnection;
    
-
+   
     public static Connection getConnection() {
 
         try {

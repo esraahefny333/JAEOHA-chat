@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.interfaces;
+package DAL.dao.interfaces;
 
 import databaseclasses.Chat;
 import databaseclasses.Message;
 import java.rmi.RemoteException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.Vector;
  */
 public interface MessagesDaoInterface extends DaoInterface<Message>{
     
-   public Vector<Message> selectChatMessage(Chat c,Integer from,Integer to) throws RemoteException;
+   public ArrayList<Message> selectChatMessage(Chat c,Integer from,Integer to) throws RemoteException;
         
     
 }

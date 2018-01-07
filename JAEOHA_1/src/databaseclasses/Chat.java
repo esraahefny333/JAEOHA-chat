@@ -13,21 +13,34 @@ import java.io.Serializable;
  */
 public class Chat implements Serializable{
 
-    private Integer chatId;
+    private Integer chatId,chatType;
     private String  chatName;
 
     public Chat()
     {}
     
-    public Chat(Integer chatId,String chatName)
+    public Chat(Integer chatId,String chatName,Integer chatType)
     {
         this.chatId=chatId;
         this.chatName=chatName;
+        this.chatType=chatType;
+        
     }
-    public Chat(String chatName)
+
+    public Integer getChatType() {
+        return chatType;
+    }
+
+    public void setChatType(Integer chatType) {
+        this.chatType = chatType;
+    }
+    
+    public Chat(String chatName,Integer chatType)
     {
         this.chatName=chatName;
+        this.chatType=chatType;
     }
+    
     
     public Integer getChatId() {
         return chatId;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.implementation;
+package DAL.dao.implementation;
 
-import dao.interfaces.UserDaoInterface;
-import database.connection.DatabaseConnectionHandler;
+import DAL.dao.interfaces.UserDaoInterface;
+import DAL.connection.DatabaseConnectionHandler;
 import databaseclasses.Notification;
-import databaseclasses.Users;
+import databaseclasses.User;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Blob;
@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     // check user email if exists
     @Override
-    public boolean checkUserByEmail(Users user) throws RemoteException {
+    public boolean checkUserByEmail(User user) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
@@ -61,7 +62,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean insert(Users t) throws RemoteException {
+    public boolean insert(User t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
@@ -94,7 +95,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     //select user data when trying to log in 
     @Override
-    public Users select(Users t) throws RemoteException {
+    public User select(User t) throws RemoteException {
 
         try {
             Connection conn = DatabaseConnectionHandler.getConnection();
@@ -118,7 +119,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean update(Users t) throws RemoteException {
+    public boolean update(User t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
             PreparedStatement pst = conn.prepareStatement(" update  users set  userName = ? , email = ? ,"
@@ -151,7 +152,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean delete(Users t) throws RemoteException {
+    public boolean delete(User t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
@@ -175,9 +176,9 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public Vector<Users> getUserFriends(Users user) throws RemoteException {
+    public ArrayList<User> getUserFriends(User user) throws RemoteException {
 
-        Vector<Users> friends = new Vector<>();
+        ArrayList<User> friends = new ArrayList();
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
@@ -204,13 +205,13 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public Vector<Users> convertToVector(ResultSet rs) throws RemoteException {
-        Vector<Users> users = new Vector<>();
+    public ArrayList<User> convertToVector(ResultSet rs) throws RemoteException {
+        ArrayList<User> users = new ArrayList<>();
         try {
 
             while (rs.next()) {
 
-                Users u = new Users();
+                User u = new User();
                 u.setId(rs.getInt(1));
                 u.setUserName(rs.getString(2));
                 u.setEmail(rs.getString(3));
@@ -228,9 +229,9 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public Vector<Users> getFriendRequests(Users user) throws RemoteException {
+    public ArrayList<User> getFriendRequests(User user) throws RemoteException {
 
-        Vector<Users> userWhoRequested = new Vector<>();
+        ArrayList<User> userWhoRequested = new ArrayList<>();
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
@@ -257,7 +258,7 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean checkUserByEmailAndPass(Users user) throws RemoteException {
+    public boolean checkUserByEmailAndPass(User user) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 

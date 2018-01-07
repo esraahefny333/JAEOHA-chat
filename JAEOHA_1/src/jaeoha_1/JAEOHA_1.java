@@ -6,52 +6,52 @@
 package jaeoha_1;
 
 import ServerImpl.Server;
-import dao.implementation.UserDaoImpl;
-import database.connection.DatabaseConnectionHandler;
-import databaseclasses.Users;
+import DAL.dao.implementation.UserDaoImpl;
+import DAL.connection.DatabaseConnectionHandler;
+import databaseclasses.User;
 import java.util.Vector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import rmi.ServerImpl.ServerImpl;
+import RMI.ServerImpl.ServerImpl;
+import databaseclasses.Chat;
+import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author esraa
  */
-public class JAEOHA_1 extends Application {
 
+public class JAEOHA_1 extends Application {
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-
-        Scene scene = new Scene(root);
-
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Pane pane=new Pane();
+        Scene scene = new Scene(pane);
+        
         stage.setScene(scene);
         stage.show();
-
-       
-
-        Users u = new Users();
-
-        u.setEmail("a@yahoo.com");
-
-        u.setPassword("47");
-
-        ServerImpl ud = new ServerImpl();
-
-        u = ud.signIn(u);
-        if (u != null) {
-
-            System.out.println(u.getActive());
+        
+        ServerImpl server=new ServerImpl();
+        User user=new User();
+        user.setId(4);
+        user.setUserName("esraa");
+         User friend=new User();
+        friend.setId(6);
+        friend.setUserName("basma");
+     //   ArrayList<Chat>chats= server.get_allRecentChats(user);
+     Chat c=server.create_individualChat(user, friend);
+     //  for(int i=0;i<chats.size();i++)
+        {
+            System.err.println(c.getChatId());
+            System.err.println(c.getChatName());
+            System.err.println(c.getChatType());
         }
-
-        u = ud.changeMyStatus(u, "by");
-
-
-        System.out.println(u.getStatus());
+         
 
         new Server();
     }
@@ -62,5 +62,5 @@ public class JAEOHA_1 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }

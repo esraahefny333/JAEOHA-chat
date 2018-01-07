@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.interfaces;
+package DAL.dao.interfaces;
 
 import databaseclasses.Notification;
-import databaseclasses.Users;
+import databaseclasses.User;
 import java.rmi.RemoteException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
  * @author abanoub samy
  */
-public interface UserDaoInterface extends DaoInterface<Users>{
+public interface UserDaoInterface extends DaoInterface<User>{
     
-    public Vector<Users> getUserFriends(Users user)throws RemoteException;
+    public ArrayList<User> getUserFriends(User user)throws RemoteException;
     
-    public Vector<Users> getFriendRequests(Users user)throws RemoteException;
+    public ArrayList<User> getFriendRequests(User user)throws RemoteException;
     
    
-    public boolean checkUserByEmail(Users user)throws RemoteException;
+    public boolean checkUserByEmail(User user)throws RemoteException;
     
-    public boolean checkUserByEmailAndPass(Users user)throws RemoteException;
+    public boolean checkUserByEmailAndPass(User user)throws RemoteException;
     
     
     
