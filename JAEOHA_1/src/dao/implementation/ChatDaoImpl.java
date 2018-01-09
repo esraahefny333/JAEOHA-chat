@@ -3,50 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.implementation;
+package dao.implementation;
 
-import DAL.dao.interfaces.NotificationsDaoInterface;
-import databaseclasses.Notification;
+import dao.interfaces.ChatDaoInterface;
+import databaseclasses.Chat;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
  *
  * @author abanoub samy
  */
-public class NotificationsDaoImpl extends UnicastRemoteObject implements NotificationsDaoInterface{
-
+public class ChatDaoImpl extends UnicastRemoteObject implements ChatDaoInterface{
     
-    NotificationsDaoImpl()throws RemoteException
+    
+    ChatDaoImpl() throws RemoteException
     {
         
         
+        
     }
+
     @Override
-    public boolean insert(Notification t) throws RemoteException {
+    public boolean insert(Chat t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Notification select(Notification t) throws RemoteException {
+    public Chat select(Chat t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Notification t) throws RemoteException {
+    public boolean update(Chat t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Notification t) throws RemoteException {
+    public boolean delete(Chat t) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Notification> convertToVector(ResultSet rs) throws RemoteException {
+    public Vector<Chat> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

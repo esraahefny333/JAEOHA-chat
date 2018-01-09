@@ -11,9 +11,9 @@ import javafx.scene.image.Image;
  *
  * @author omnia
  */
-public class User implements Serializable{
+public class Users implements Serializable{
     
-    private Integer id;
+    private Integer id;//rgm3naa
 //    private String firstName;
 //    private String lastName;
     private String userName;
@@ -26,11 +26,11 @@ public class User implements Serializable{
     private String status;
     private Integer active;
     
-    public User()
+    public Users()
     { 
     }
 
-    public User(Integer id, String userName, String email, String phone, String country, String gender, Image photo, String password, String status, Integer active) {
+    public Users(Integer id, String userName, String email, String phone, String country, String gender, Image photo, String password, String status, Integer active) {
         this.id = id;
         this.userName = userName;
         this.email = email;

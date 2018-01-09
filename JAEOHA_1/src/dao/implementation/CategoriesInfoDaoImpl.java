@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.implementation;
+package dao.implementation;
 
-import DAL.dao.interfaces.CategoriesInfoDaoInterface;
+import dao.interfaces.CategoriesInfoDaoInterface;
 import databaseclasses.CategoriesInfo;
-import databaseclasses.User;
+import databaseclasses.Users;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -52,7 +51,7 @@ public class CategoriesInfoDaoImpl extends UnicastRemoteObject implements Catego
     }
 
     @Override
-    public ArrayList<CategoriesInfo> convertToVector(ResultSet rs) throws RemoteException {
+    public Vector<CategoriesInfo> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.implementation;
+package dao.implementation;
 
-import DAL.dao.interfaces.MessagesDaoInterface;
-import DAL.connection.DatabaseConnectionHandler;
+import dao.interfaces.MessagesDaoInterface;
+import database.connection.DatabaseConnectionHandler;
 import databaseclasses.Chat;
 import databaseclasses.Message;
 import java.rmi.RemoteException;
@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,9 +57,9 @@ public class MessagesDaoImpl extends UnicastRemoteObject implements MessagesDaoI
     }
 
     @Override
-    public ArrayList<Message> convertToVector(ResultSet rs) throws RemoteException {
+    public Vector<Message> convertToVector(ResultSet rs) throws RemoteException {
         
-        ArrayList <Message> message=new ArrayList<Message>();
+        Vector <Message> message=new Vector<Message>();
         try {
             while(rs.next())
             {
@@ -84,9 +84,9 @@ public class MessagesDaoImpl extends UnicastRemoteObject implements MessagesDaoI
     }
 
     @Override
-    public ArrayList<Message> selectChatMessage(Chat c, Integer from, Integer to) throws RemoteException {
+    public Vector<Message> selectChatMessage(Chat c, Integer from, Integer to) throws RemoteException {
        
-        ArrayList<Message>msg=null;
+        Vector<Message>msg=null;
       try {
             Connection conn = DatabaseConnectionHandler.getConnection();
             ResultSet rs=null;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.implementation;
+package dao.implementation;
 
-import DAL.dao.interfaces.UserDaoInterface;
-import DAL.connection.DatabaseConnectionHandler;
+import dao.interfaces.UserDaoInterface;
+import database.connection.DatabaseConnectionHandler;
 import databaseclasses.Notification;
-import databaseclasses.User;
+import databaseclasses.Users;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Blob;
@@ -16,7 +16,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,14 +32,14 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     // check user email if exists
     @Override
-    public boolean checkUserByEmail(User user) throws RemoteException {
+    public boolean checkUserByEmail(Users user) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select * from users where email = ? ",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, user.getEmail());
 
@@ -62,13 +61,13 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean insert(User t) throws RemoteException {
+    public boolean insert(Users t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             PreparedStatement pst = conn.prepareStatement("INSERT INTO  users"
                     + "( userName ,email,phoneNo,gender,country,password,status,photo,active) "
-                    + "values (?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "values (?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, t.getUserName());
             pst.setString(2, t.getEmail());
@@ -95,15 +94,16 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     //select user data when trying to log in 
     @Override
-    public User select(User t) throws RemoteException {
+    public Users select(Users t) throws RemoteException {
 
-        try {
-            Connection conn = DatabaseConnectionHandler.getConnection();
+        boolean found = false;
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
             ResultSet rs = null;
 
-            PreparedStatement pst = conn.prepareStatement("select userName ,email,phoneNo,gender,"
-                    + "country,status,photo,active"
-                    + "   from users where email = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,phoneNo,gender,"
+                    + "country,password,status,photo,active"
+                    + "   from users where email = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, t.getEmail());
 
@@ -111,32 +111,55 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
             System.out.println("user selected successfully");
 
-            return t;
+            while (rs.next()) {
+                found = true;
+                t.setId(rs.getInt(1));
+                t.setUserName(rs.getString(2));
+                t.setEmail(rs.getString(3));
+                t.setPhone(rs.getString(4));
+                t.setGender(rs.getString(5));
+
+                t.setCountry(rs.getString(6));
+
+                t.setPassword(rs.getString(7));
+                t.setStatus(rs.getString(8));
+
+                t.setPhoto(null);
+                t.setActive(rs.getInt(10));
+            }
+            if (found) {
+                return t;
+            } else {
+                return null;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return t;
+
     }
 
     @Override
-    public boolean update(User t) throws RemoteException {
+    public boolean update(Users t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
             PreparedStatement pst = conn.prepareStatement(" update  users set  userName = ? , email = ? ,"
                     + " phoneNo = ? , gender = ? , country = ? , password = ? ,  "
-                    + "status = ? , photo = ?  "
-                    + "  where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "status = ? , photo = ? ,active = ? "
+                    + "  where id = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            pst.setString(1, "samy");
-            pst.setString(2, "samy");
-            pst.setString(3, "samy");
-            pst.setString(4, "samy");
-            pst.setString(5, "samy");
-            pst.setString(6, "samy");
-            pst.setString(7, "samy");
+            pst.setString(1, t.getUserName());
+            pst.setString(2, t.getEmail());
+            pst.setString(3, t.getPhone());
+            pst.setString(4, t.getGender());
+            pst.setString(5, t.getCountry());
+            pst.setString(6, t.getPassword());
+            pst.setString(7, t.getStatus());
 
-            pst.setString(8, null);
-            pst.setInt(9, 2);
+            pst.setBlob(8, (Blob) t.getPhoto());
+
+            pst.setInt(9, t.getActive());
+            pst.setInt(10, t.getId());
 
             pst.executeUpdate();
 
@@ -152,14 +175,14 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean delete(User t) throws RemoteException {
+    public boolean delete(Users t) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             PreparedStatement pst = conn.prepareStatement(" delete from   users "
-                    + "  where id = ? ", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "  where id = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            pst.setInt(1, 2);
+            pst.setInt(1, t.getId());
 
             pst.executeUpdate();
 
@@ -176,16 +199,16 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public ArrayList<User> getUserFriends(User user) throws RemoteException {
+    public Vector<Users> getUserFriends(Users user) throws RemoteException {
 
-        ArrayList<User> friends = new ArrayList();
+        Vector<Users> friends = new Vector<>();
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select friendId from user_friends where userId = ? )",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
             pst.setInt(1, 3);
@@ -205,13 +228,13 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public ArrayList<User> convertToVector(ResultSet rs) throws RemoteException {
-        ArrayList<User> users = new ArrayList<>();
+    public Vector<Users> convertToVector(ResultSet rs) throws RemoteException {
+        Vector<Users> users = new Vector<>();
         try {
 
             while (rs.next()) {
 
-                User u = new User();
+                Users u = new Users();
                 u.setId(rs.getInt(1));
                 u.setUserName(rs.getString(2));
                 u.setEmail(rs.getString(3));
@@ -229,16 +252,16 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public ArrayList<User> getFriendRequests(User user) throws RemoteException {
+    public Vector<Users> getFriendRequests(Users user) throws RemoteException {
 
-        ArrayList<User> userWhoRequested = new ArrayList<>();
+        Vector<Users> userWhoRequested = new Vector<>();
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select senderId from user_friend_requests where recieverId = ? )",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
             pst.setInt(1, 3);
@@ -258,14 +281,14 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
     }
 
     @Override
-    public boolean checkUserByEmailAndPass(User user) throws RemoteException {
+    public boolean checkUserByEmailAndPass(Users user) throws RemoteException {
 
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             ResultSet rs = null;
 
             PreparedStatement pst = conn.prepareStatement("select * from users where email = ? and password = ? ",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             pst.setString(1, user.getEmail());
             pst.setString(2, user.getPassword());
@@ -287,6 +310,5 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     }
 
-    
-
+   
 }

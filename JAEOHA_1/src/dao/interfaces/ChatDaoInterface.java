@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.interfaces;
+package dao.interfaces;
 
-import databaseclasses.Admins;
+import databaseclasses.Chat;
 
 /**
  *
  * @author abanoub samy
  */
-public interface AdminsDaoInterface extends DaoInterface<Admins>{
+public interface ChatDaoInterface extends DaoInterface<Chat>{
     
 }

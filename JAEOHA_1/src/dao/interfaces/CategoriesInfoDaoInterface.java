@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.interfaces;
+package dao.interfaces;
 
 import databaseclasses.CategoriesInfo;
 
 /**
  *
- * @author abanoub samy
+ * @author abanoub samy   
  */
 public interface CategoriesInfoDaoInterface extends DaoInterface<CategoriesInfo>{
     

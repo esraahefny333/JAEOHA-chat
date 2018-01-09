@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL.dao.interfaces;
+package dao.interfaces;
 
-import databaseclasses.User;
+import databaseclasses.Users;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -25,6 +25,6 @@ public interface DaoInterface<T> extends Remote {
 
     public boolean delete(T t) throws RemoteException;
     
-    public ArrayList<T> convertToVector(ResultSet rs) throws RemoteException;
+    public Vector<T> convertToVector(ResultSet rs) throws RemoteException;
 
 }
