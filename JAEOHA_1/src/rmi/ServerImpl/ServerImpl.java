@@ -5,12 +5,15 @@
  */
 package rmi.ServerImpl;
 
+import dao.implementation.ChatDaoImpl;
 import dao.implementation.UserDaoImpl;
 import dao.implementation.UserFriendReqDaoImpl;
 import dao.interfaces.DaoInterface;
+import databaseclasses.Chat;
 import databaseclasses.Users;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Vector;
 import rmi.interfaces.ServerInterface;
 
@@ -20,12 +23,14 @@ import rmi.interfaces.ServerInterface;
  */
 public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
-    UserDaoImpl u = new UserDaoImpl();
+    UserDaoImpl u ;
+    ChatDaoImpl chat;
     
     UserFriendReqDaoImpl  fr = new UserFriendReqDaoImpl();
 
     public ServerImpl() throws RemoteException {
-
+         u= new UserDaoImpl();
+        chat=new ChatDaoImpl();
     }
 
     @Override
@@ -142,6 +147,37 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         return u.getFriendRequests(user);
     }
 
+    
+     @Override
+    public ArrayList<Chat> get_allIndividualChats(Users user)throws RemoteException {
+ 
+        return chat.select_allChats(user,"0");
+    }
+ @Override
+    public ArrayList<Chat> get_allGroupChats(Users user)throws RemoteException {
+ 
+        return chat.select_allChats(user,"1");
+    }
+
+    @Override
+    public ArrayList<Chat> get_allRecentChats(Users user) throws RemoteException {
+        return chat.select_allRecentChats(user);
+    }
+
+     public Chat get_individualChat(Users user,Users friend)throws RemoteException//chat between user and his friend
+     {
+         return chat.select_individualChat(user,friend); 
+     }
+    public Chat create_individualChat(Users user,Users friend)throws RemoteException//chat between user and his friend
+     {
+         System.err.println("hnaa");
+        Chat c=null;
+          if(chat.insert_individualChat(user,friend)==1)
+          {
+              c=get_individualChat(user,friend);
+          }
+          return c;
+     }
     
 
 }

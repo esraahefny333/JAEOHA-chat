@@ -6,11 +6,16 @@
 package dao.interfaces;
 
 import databaseclasses.Chat;
+import databaseclasses.Users;
+import java.util.ArrayList;
 
 /**
  *
  * @author abanoub samy
  */
 public interface ChatDaoInterface extends DaoInterface<Chat>{
-    
+     public Chat select_individualChat(Users user,Users friend);
+    public int insert_individualChat(Users user,Users friend);
+    public ArrayList<Chat> select_allChats(Users user,String type);
+    public ArrayList<Chat> select_allRecentChats(Users user);
 }
