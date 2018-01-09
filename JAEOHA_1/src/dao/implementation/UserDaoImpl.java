@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -207,11 +208,12 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
             ResultSet rs = null;
 
-            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select friendId from user_friends where userId = ? )",
+            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users,user_friends where users.id = user_friends.friendId\n"
+                    + "and user_friends.userId = ?;",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             //   pst.setInt(1, user.getId());
-            pst.setInt(1, 3);
+            pst.setInt(1, user.getId());
 
             rs = pst.executeQuery();
 
@@ -260,11 +262,12 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
             ResultSet rs = null;
 
-            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users where id =  (select senderId from user_friend_requests where recieverId = ? )",
+            PreparedStatement pst = conn.prepareStatement("select id ,userName ,email,status,photo,active from users,user_friend_requests where users.id =user_friend_requests.senderId\n" +
+"and user_friend_requests.recieverId =?;",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            //   pst.setInt(1, user.getId());
-            pst.setInt(1, 3);
+              pst.setInt(1, user.getId());
+//            pst.setInt(1, 4);
 
             rs = pst.executeQuery();
 
@@ -310,5 +313,38 @@ public class UserDaoImpl extends UnicastRemoteObject implements UserDaoInterface
 
     }
 
-   
+    @Override
+    public Vector<Notification> getMyNotifications(Users user) throws RemoteException {
+
+        Vector<Notification> retrievedNotifications = new Vector<>();
+        try (Connection conn = DatabaseConnectionHandler.getConnection()) {
+
+            ResultSet rs = null;
+
+            PreparedStatement pst = conn.prepareStatement("select notifText  from notifications,notifreceiver where notifications.notifId = notifreceiver.notifId and notifreceiver.recieverId = ? ",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            //   pst.setInt(1, user.getId());
+            pst.setInt(1, user.getId());
+
+            rs = pst.executeQuery();
+
+            System.out.println("notifications selected successfully");
+
+            while (rs.next()) {
+
+                Notification n = new Notification();
+                n.setNotifText(rs.getString(1));
+                retrievedNotifications.add(n);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return retrievedNotifications;
+
+    }
+
 }

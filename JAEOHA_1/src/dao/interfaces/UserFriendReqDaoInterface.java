@@ -17,4 +17,6 @@ public interface UserFriendReqDaoInterface extends DaoInterface<UserFriendReques
     
     public boolean checkIfRequested(int userId,int userRetrievedId)throws RemoteException;
     
+    
+    
 }

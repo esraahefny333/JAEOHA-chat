@@ -8,6 +8,7 @@ package dao.interfaces;
 import databaseclasses.Notification;
 import databaseclasses.Users;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -19,6 +20,9 @@ public interface UserDaoInterface extends DaoInterface<Users>{
     public Vector<Users> getUserFriends(Users user)throws RemoteException;
     
     public Vector<Users> getFriendRequests(Users user)throws RemoteException;
+    
+    
+    public Vector<Notification>getMyNotifications(Users user)throws RemoteException;
     
    
     public boolean checkUserByEmail(Users user)throws RemoteException;

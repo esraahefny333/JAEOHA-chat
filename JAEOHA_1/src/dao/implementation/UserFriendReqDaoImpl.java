@@ -10,6 +10,7 @@ import database.connection.DatabaseConnectionHandler;
 import databaseclasses.UserFriendRequests;
 import databaseclasses.Users;
 import java.rmi.RemoteException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,15 +23,11 @@ import java.util.logging.Logger;
  *
  * @author abanoub samy
  */
-public class UserFriendReqDaoImpl implements UserFriendReqDaoInterface{
+public class UserFriendReqDaoImpl implements UserFriendReqDaoInterface {
 
-    
-    
-    
-     @Override
-    public boolean checkIfRequested(int userId,int userRetrievedId) throws RemoteException {
-        
-        
+    @Override
+    public boolean checkIfRequested(int userId, int userRetrievedId) throws RemoteException {
+
         try (Connection conn = DatabaseConnectionHandler.getConnection()) {
 
             ResultSet rs = null;
@@ -57,14 +54,27 @@ public class UserFriendReqDaoImpl implements UserFriendReqDaoInterface{
         }
     }
 
-    
-    
-    
- 
-
     @Override
     public boolean insert(UserFriendRequests t) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try (Connection conn = DatabaseConnectionHandler.getConnection(); PreparedStatement pst = conn.prepareStatement("INSERT INTO  user_friend_requests"
+                + "( recieverId ,senderId) "
+                + "values (?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
+
+            pst.setInt(1, t.getRecieverId());
+            pst.setInt(2, t.getSenderId());
+
+            pst.executeUpdate();
+
+            System.out.println("request added successfully");
+
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error in user insertion");
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
     }
 
     @Override
@@ -79,12 +89,35 @@ public class UserFriendReqDaoImpl implements UserFriendReqDaoInterface{
 
     @Override
     public boolean delete(UserFriendRequests t) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try (Connection conn = DatabaseConnectionHandler.getConnection(); PreparedStatement pst = conn.prepareStatement(" delete from   user_friend_requests "
+                + "  where recieverId = ? and senderId = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+
+            
+            
+//            pst.setInt(1, 4);
+//            pst.setInt(2, 8);
+            pst.setInt(1, t.getRecieverId());
+            pst.setInt(2, t.getSenderId());
+
+            pst.executeUpdate();
+
+            System.out.println("requestdeleted successflly");
+
+            return true;
+        } catch (SQLException ex) {
+
+            System.out.println("error in delete query");
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+            return false;
+        }
+
     }
 
     @Override
     public Vector<UserFriendRequests> convertToVector(ResultSet rs) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
